@@ -7,7 +7,6 @@ import Addons from './components/Addons';
 import NodeGraph from './components/NodeGraph';
 import WhyKronos from './components/WhyKronos';
 import Timeline from './components/Timeline';
-import Performance from './components/Performance';
 import Footer from './components/Footer';
 
 function ScrollProgress() {
@@ -81,7 +80,6 @@ export default function App() {
         <NodeGraph />
         <WhyKronos />
         <Timeline />
-        <Performance />
       </main>
       <Footer />
     </div>

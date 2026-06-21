@@ -147,7 +147,8 @@ function AddonCard({ addon }: { addon: Addon }) {
   const Icon = addon.icon;
   return (
     <article
-      className="glass group relative flex flex-col overflow-hidden rounded-2xl p-7 transition-all duration-500 hover:-translate-y-2"
+      data-stagger
+      className="glass group relative flex flex-col overflow-hidden rounded-2xl p-5 transition-all duration-500 hover:-translate-y-2 sm:p-7"
     >
       {/* Hover glow */}
       <div

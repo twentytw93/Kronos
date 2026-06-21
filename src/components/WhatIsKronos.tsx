@@ -67,6 +67,7 @@ export default function WhatIsKronos() {
         {PILLARS.map((p) => (
           <div
             key={p.title}
+            data-stagger
             className="glass group relative overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:-translate-y-1.5 hover:border-kronos-violet/30"
           >
             <div
@@ -87,7 +88,7 @@ export default function WhatIsKronos() {
       </div>
 
       {/* Stats */}
-      <div className="mt-16 grid grid-cols-2 gap-4 rounded-3xl glass-strong p-8 md:grid-cols-4 md:gap-8 md:p-10">
+      <div className="mt-16 grid grid-cols-2 gap-4 rounded-3xl glass-strong p-6 sm:p-8 md:grid-cols-4 md:gap-8 md:p-10">
         {STATS.map((s) => (
           <StatTile key={s.label} {...s} />
         ))}
@@ -107,7 +108,7 @@ function StatTile({
 }) {
   const { ref, value: animated } = useCountUp(value, { duration: 1600 });
   return (
-    <div className="text-center">
+    <div className="text-center" data-stagger>
       <div className="font-display text-4xl font-bold tracking-tight text-gradient-aurora md:text-5xl">
         <span ref={ref}>{animated}</span>
         <span>{suffix}</span>

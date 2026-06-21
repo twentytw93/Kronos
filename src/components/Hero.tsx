@@ -20,7 +20,7 @@ export default function Hero() {
         </div>
 
         <h1
-          className="font-display text-6xl font-bold leading-[1.05] tracking-tight text-white sm:text-7xl md:text-8xl lg:text-[8.5rem] animate-rise-in"
+          className="font-display text-5xl font-bold leading-[1.05] tracking-tight text-white xs:text-6xl sm:text-7xl md:text-8xl lg:text-[8.5rem] animate-rise-in"
           style={{ textShadow: '0 0 80px rgba(139,92,246,0.35)' }}
         >
           KRONOS

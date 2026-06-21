@@ -70,7 +70,7 @@ export default function Timeline() {
         {PHASES.map((phase) => {
           const styles = STATUS_STYLES[phase.status];
           return (
-            <div key={phase.label} className="relative">
+            <div key={phase.label} className="relative" data-stagger>
               {/* Vertical line */}
               <div className="absolute left-6 top-2 h-full w-px md:hidden" style={{ background: 'rgba(255,255,255,0.06)' }} />
 

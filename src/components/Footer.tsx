@@ -4,16 +4,15 @@ const ECOSYSTEM_LINKS = [
   { label: 'Kronos Core', href: '#ecosystem' },
   { label: 'Architecture', href: '#architecture' },
   { label: 'Roadmap', href: '#timeline' },
-  { label: 'Performance', href: '#performance' },
+  { label: 'Add-ons', href: '#addons' },
 ];
 
 const ADDON_LINKS = [
-  { label: 'Kronos Cave', href: '#addons' },
-  { label: 'Kronos Thermo', href: '#addons' },
-  { label: 'Kronos Keeper', href: '#addons' },
-  { label: 'Kronos Mirror', href: '#addons' },
-  { label: 'Kronos Tunnel', href: '#addons' },
-  { label: 'Kronos Pro Remote', href: '#addons' },
+  { label: 'Browse all add-ons', href: '#addons' },
+  { label: 'Security', href: '#addons' },
+  { label: 'Stability', href: '#addons' },
+  { label: 'Integrity', href: '#addons' },
+  { label: 'Network', href: '#addons' },
 ];
 
 const SOCIAL = [

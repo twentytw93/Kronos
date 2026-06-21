@@ -75,7 +75,7 @@ export default function WhyKronos() {
         </p>
       </div>
 
-      <div className="mt-16 grid gap-px overflow-hidden rounded-3xl border border-white/[0.06] bg-white/[0.02] md:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-16 grid gap-px overflow-hidden rounded-3xl border border-white/[0.06] bg-white/[0.02] sm:grid-cols-2 lg:grid-cols-3">
         {FEATURES.map((f, i) => (
           <FeatureCell key={f.title} feature={f} index={i} />
         ))}
@@ -87,7 +87,7 @@ export default function WhyKronos() {
 function FeatureCell({ feature, index }: { feature: Feature; index: number }) {
   const Icon = feature.icon;
   return (
-    <div className="group relative bg-space-deep/40 p-8 transition-colors duration-300 hover:bg-white/[0.025]">
+    <div className="group relative bg-space-deep/40 p-6 transition-colors duration-300 hover:bg-white/[0.025] sm:p-8" data-stagger>
       <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
         <div
           className="absolute left-0 top-0 h-px w-full"

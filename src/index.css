@@ -10,11 +10,15 @@
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
   }
 
   body {
     @apply bg-space-base text-slate-200 font-sans antialiased;
     overflow-x: hidden;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   h1, h2, h3, h4 {
@@ -145,6 +149,35 @@
   .reveal.is-visible {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  /* Staggered children: any [data-stagger] child of a visible .reveal
+     animates in with a per-element delay. Used for cards, lists, grids. */
+  .reveal [data-stagger] {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.is-visible [data-stagger] {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal.is-visible [data-stagger]:nth-child(1) { transition-delay: 0.05s; }
+  .reveal.is-visible [data-stagger]:nth-child(2) { transition-delay: 0.12s; }
+  .reveal.is-visible [data-stagger]:nth-child(3) { transition-delay: 0.19s; }
+  .reveal.is-visible [data-stagger]:nth-child(4) { transition-delay: 0.26s; }
+  .reveal.is-visible [data-stagger]:nth-child(5) { transition-delay: 0.33s; }
+  .reveal.is-visible [data-stagger]:nth-child(6) { transition-delay: 0.40s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal,
+    .reveal [data-stagger] {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+    html { scroll-behavior: auto; }
   }
 }
 

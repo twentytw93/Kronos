@@ -10,35 +10,36 @@ import {
 } from 'lucide-react';
 import { useReveal } from '../hooks/useAnimations';
 
-type Node = {
+type Layer = {
   id: string;
-  name: string;
+  role: string;
   icon: LucideIcon;
   accent: string;
   angle: number;
 };
 
-const NODES: Node[] = [
-  { id: 'cave', name: 'Cave', icon: ShieldCheck, accent: '#a78bfa', angle: -90 },
-  { id: 'thermo', name: 'Thermo', icon: Thermometer, accent: '#22d3ee', angle: -30 },
-  { id: 'keeper', name: 'Keeper', icon: FileCheck2, accent: '#f5d089', angle: 30 },
-  { id: 'mirror', name: 'Mirror', icon: MonitorPlay, accent: '#c4b5fd', angle: 90 },
-  { id: 'tunnel', name: 'Tunnel', icon: Network, accent: '#60a5fa', angle: 150 },
-  { id: 'proremote', name: 'Pro Remote', icon: Gamepad2, accent: '#f472b6', angle: 210 },
+// Functional layers — same set as EcosystemArchitecture, shown as a radial graph.
+const LAYERS: Layer[] = [
+  { id: 'security', role: 'Security', icon: ShieldCheck, accent: '#a78bfa', angle: -90 },
+  { id: 'stability', role: 'Stability', icon: Thermometer, accent: '#22d3ee', angle: -30 },
+  { id: 'integrity', role: 'Integrity', icon: FileCheck2, accent: '#f5d089', angle: 30 },
+  { id: 'sync', role: 'Sync', icon: MonitorPlay, accent: '#c4b5fd', angle: 90 },
+  { id: 'network', role: 'Network', icon: Network, accent: '#60a5fa', angle: 150 },
+  { id: 'control', role: 'Control', icon: Gamepad2, accent: '#f472b6', angle: 210 },
 ];
 
 export default function NodeGraph() {
   const ref = useReveal<HTMLDivElement>();
   const [active, setActive] = useState<string | null>(null);
 
-  const radius = 200;
   const center = 280;
+  const radius = 200;
 
   return (
     <section
       id="architecture"
       ref={ref}
-      className="reveal section-pad relative py-28 md:py-36"
+      className="reveal section-pad relative py-20 md:py-32"
     >
       <div
         className="pointer-events-none absolute inset-0 -z-10"
@@ -49,48 +50,48 @@ export default function NodeGraph() {
       />
       <div className="mx-auto max-w-3xl text-center">
         <span className="chip-gold">Ecosystem Visual</span>
-        <h2 className="mt-6 text-4xl font-semibold leading-tight text-white md:text-5xl">
+        <h2 className="mt-6 text-3xl font-semibold leading-tight text-white sm:text-4xl md:text-5xl">
           The <span className="text-gradient-gold">connection graph</span>
         </h2>
-        <p className="mt-6 text-lg leading-relaxed text-slate-400">
-          Kronos Core routes every layer. Hover a node to trace its relationship
+        <p className="mt-6 text-base leading-relaxed text-slate-400 sm:text-lg">
+          Kronos Core routes every layer. Tap a node to trace its relationship
           to the hub.
         </p>
       </div>
 
-      <div className="mt-16 flex justify-center">
-        <div className="relative" style={{ width: 560, maxWidth: '100%', aspectRatio: '1' }}>
+      <div className="mt-12 flex justify-center md:mt-16">
+        <div
+          className="relative mx-auto"
+          style={{ width: 'min(92vw, 560px)', aspectRatio: '1' }}
+        >
           <svg
             viewBox="0 0 560 560"
             className="h-full w-full"
             aria-label="Kronos ecosystem node graph"
           >
-            {/* Faint orbital rings */}
             <circle cx={center} cy={center} r={radius} fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
             <circle cx={center} cy={center} r={radius * 0.55} fill="none" stroke="rgba(255,255,255,0.04)" strokeWidth="1" strokeDasharray="3 6" />
 
-            {/* Connection lines */}
-            {NODES.map((node) => {
-              const rad = (node.angle * Math.PI) / 180;
+            {LAYERS.map((layer) => {
+              const rad = (layer.angle * Math.PI) / 180;
               const x = center + radius * Math.cos(rad);
               const y = center + radius * Math.sin(rad);
-              const isActive = active === node.id;
+              const isActive = active === layer.id;
               return (
                 <line
-                  key={`line-${node.id}`}
+                  key={`line-${layer.id}`}
                   x1={center}
                   y1={center}
                   x2={x}
                   y2={y}
-                  stroke={isActive ? node.accent : 'rgba(139,92,246,0.2)'}
+                  stroke={isActive ? layer.accent : 'rgba(139,92,246,0.2)'}
                   strokeWidth={isActive ? 2 : 1}
-                  strokeOpacity={isActive ? 0.8 : 0.4}
+                  strokeOpacity={isActive ? 0.85 : 0.4}
                   style={{ transition: 'all 0.3s ease' }}
                 />
               );
             })}
 
-            {/* Center hub */}
             <g>
               <circle cx={center} cy={center} r={48} fill="url(#hubGrad)" stroke="rgba(139,92,246,0.4)" strokeWidth="1" />
               <circle cx={center} cy={center} r={58} fill="none" stroke="rgba(232,183,90,0.2)" strokeWidth="1" strokeDasharray="2 4" />
@@ -100,17 +101,17 @@ export default function NodeGraph() {
                 textAnchor="middle"
                 className="font-display"
                 fill="#f5d089"
-                style={{ fontSize: 10, letterSpacing: '0.3em', textTransform: 'uppercase' }}
+                style={{ fontSize: 11, letterSpacing: '0.3em', textTransform: 'uppercase' }}
               >
                 Kronos
               </text>
               <text
                 x={center}
-                y={center + 12}
+                y={center + 14}
                 textAnchor="middle"
                 className="font-display"
                 fill="#fff"
-                style={{ fontSize: 16, fontWeight: 700 }}
+                style={{ fontSize: 17, fontWeight: 700 }}
               >
                 CORE
               </text>
@@ -124,46 +125,46 @@ export default function NodeGraph() {
             </defs>
           </svg>
 
-          {/* HTML node icons (interactive) */}
-          {NODES.map((node) => {
-            const rad = (node.angle * Math.PI) / 180;
+          {LAYERS.map((layer) => {
+            const rad = (layer.angle * Math.PI) / 180;
             const x = 50 + (radius / 560) * 100 * Math.cos(rad);
             const y = 50 + (radius / 560) * 100 * Math.sin(rad);
-            const Icon = node.icon;
-            const isActive = active === node.id;
+            const Icon = layer.icon;
+            const isActive = active === layer.id;
             return (
               <button
-                key={node.id}
-                onMouseEnter={() => setActive(node.id)}
+                key={layer.id}
+                onMouseEnter={() => setActive(layer.id)}
                 onMouseLeave={() => setActive(null)}
-                onFocus={() => setActive(node.id)}
+                onFocus={() => setActive(layer.id)}
                 onBlur={() => setActive(null)}
+                onClick={() => setActive((p) => (p === layer.id ? null : layer.id))}
                 className="absolute -translate-x-1/2 -translate-y-1/2 outline-none"
                 style={{ left: `${x}%`, top: `${y}%` }}
-                aria-label={node.name}
+                aria-label={layer.role}
               >
                 <div
-                  className="grid h-14 w-14 place-items-center rounded-full transition-all duration-300"
+                  className="grid h-12 w-12 place-items-center rounded-full transition-all duration-300 sm:h-14 sm:w-14"
                   style={{
                     background: isActive
-                      ? `rgba(${hexToRgb(node.accent)},0.18)`
-                      : 'rgba(255,255,255,0.03)',
-                    border: `1px solid ${isActive ? node.accent : 'rgba(255,255,255,0.1)'}`,
-                    boxShadow: isActive ? `0 0 30px -4px ${node.accent}` : 'none',
+                      ? `rgba(${hexToRgb(layer.accent)},0.18)`
+                      : 'rgba(7,10,22,0.85)',
+                    border: `1px solid ${isActive ? layer.accent : 'rgba(255,255,255,0.1)'}`,
+                    boxShadow: isActive ? `0 0 30px -4px ${layer.accent}` : '0 4px 16px -4px rgba(0,0,0,0.6)',
                     transform: isActive ? 'scale(1.15)' : 'scale(1)',
                   }}
                 >
                   <Icon
-                    className="h-6 w-6 transition-colors"
-                    style={{ color: isActive ? node.accent : '#cbd5e1' }}
+                    className="h-5 w-5 transition-colors sm:h-6 sm:w-6"
+                    style={{ color: isActive ? layer.accent : '#cbd5e1' }}
                     strokeWidth={1.7}
                   />
                 </div>
                 <div
-                  className="mt-2 text-center text-xs font-medium transition-colors"
-                  style={{ color: isActive ? node.accent : '#94a3b8' }}
+                  className="mt-2 text-center text-[10px] font-medium transition-colors sm:text-xs"
+                  style={{ color: isActive ? layer.accent : '#94a3b8' }}
                 >
-                  {node.name}
+                  {layer.role}
                 </div>
               </button>
             );
